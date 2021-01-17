@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\LeadController;
 
 Auth::routes();
 
@@ -14,4 +15,4 @@ Route::get('/', function () {
 
 Route::get('l/register', [PageController::class, 'createLead'])->name('page.lead.register');
 
-Route::post('lead/calificados', [LeadController::class, 'indexCalificados'])->name('lead.calificados');
+Route::get('lead/calificados', [LeadController::class, 'indexCalificados'])->name('lead.calificados')->middleware('auth');
