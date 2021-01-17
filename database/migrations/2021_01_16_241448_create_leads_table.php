@@ -22,14 +22,16 @@ class CreateLeadsTable extends Migration
             $table->string('mobile',9)->nullable()->nullable();
             $table->string('email')->unique();
             $table->bigInteger('career_id')->unsigned();
-            $table->string('semester',5);
+            $table->string('semester',9);
             $table->bigInteger('institution_id')->unsigned();
             $table->string('english_level',20);
             $table->bigInteger('program_id')->unsigned();
-            $table->string('communication_channel',20);
+            $table->string('communication_channel',40);
 
             $table->integer('schedule_start')->length(2)->unsigned();
+            $table->string('schedule_start_meridiem',2);
             $table->integer('schedule_end')->length(2)->unsigned();
+            $table->string('schedule_end_meridiem',2);
 
             $table->string('commentary',120)->nullable();
             $table->string('profile',120)->nullable();

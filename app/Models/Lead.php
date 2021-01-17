@@ -22,7 +22,9 @@ class Lead extends Model
         'program_id',
         'communication_channel',
         'schedule_start',
+        'schedule_start_meridiem',
         'schedule_end',
+        'schedule_end_meridiem',
         'commentary',
         'profile',
         'pipeline_dispatch',
@@ -63,28 +65,6 @@ class Lead extends Model
     }
 
     public function getScheduleDurationAttribute(){
-
-        $start = $this->schedule_start;
-        $end = $this->schedule_end;
-
-        if ($start > 12) {
-            $new_start = $start - 12;
-            $new_start = "$new_start pm.";
-        } elseif ($start == 12) {
-            $new_start = "$start pm.";
-        } else {
-            $new_start = "$start am.";
-        }
-
-        if ($end > 12) {
-            $new_end = $end - 12;
-            $new_end = "$new_end pm.";
-        } elseif ($end == 12) {
-            $new_end = "$end pm.";
-        } else {
-            $new_end = "$end am.";
-        }
-
-        return  "$new_start - $new_end ";
+        return  "$this->schedule_start $this->schedule_start_meridiem a $this->schedule_end $this->schedule_end_meridiem ";
     }
 }

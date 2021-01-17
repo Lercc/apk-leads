@@ -50,12 +50,6 @@
                                     <a class="nav-link font-weight-bolder" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
-                            
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link font-weight-bolder" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
                         @else
                             <li class="nav-item">
                                 <a href="{{ route('leads.calificados') }}" class="nav-link font-weight-bolder">Calificados</a>
@@ -78,6 +72,10 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    @if (Route::has('register'))
+                                        <a class="dropdown-item" href="{{ route('register') }}">{{ __('Admin') }}</a>
+                                    @endif
+               
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

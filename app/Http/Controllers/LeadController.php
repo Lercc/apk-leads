@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
+use App\Http\Requests\LeadRequest;
 use App\Models\Lead;
 
 class LeadController extends Controller
@@ -102,4 +104,11 @@ class LeadController extends Controller
         return back();
     }
     
+    /**
+     * Store no protegido por el middleware auth
+     */
+    public function store(LeadRequest $request)
+    {
+        dd($request->validated());
+    }     
 }
