@@ -57,8 +57,23 @@
                                 </li>
                             @endif
                         @else
+                            <li class="nav-item">
+                                <a href="{{ route('leads.calificados') }}" class="nav-link font-weight-bolder">Calificados</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('leads.aceptados') }}" class="nav-link font-weight-bolder">Perfiles aceptados</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('leads.edad') }}" class="nav-link font-weight-bolder">Edad</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('leads.ingles') }}" class="nav-link font-weight-bolder">Inglés</a>
+                            </li>
+                            <li class="nav-item d-none d-md-block">
+                               <span class="nav-link font-weight-bolder">&nbsp;&Iota;&nbsp;</span>
+                            </li>
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle font-weight-bolder" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 

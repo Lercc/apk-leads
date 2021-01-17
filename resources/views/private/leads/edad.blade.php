@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">TABLA CALIFICADOS</div>
+                <div class="card-header">TABLA EDAD</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -72,11 +72,11 @@
                                                             </button>
                                                         </form>
                                                         <form 
-                                                            action="{{ route('leads.updateAgeTable', $lead) }}" method="POST" >
+                                                            action="{{ route('leads.updateQualifiedTable', $lead) }}" method="POST" >
                                                             @csrf
                                                             @method('PUT')
                                                             <button class="dropdown-item">
-                                                                Enviar a <b>EDAD</b>
+                                                                Enviar a <b>CALIFICADOS</b>
                                                             </button>
                                                         </form>
                                                         <form 

@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">TABLA CALIFICADOS</div>
+                <div class="card-header">TABLA INGLÉS</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -17,7 +17,7 @@
 
                     @if ($leads->count() != 0)
                         <div class="table-responsive">
-                            <table class="table">
+                            <table class="table" style="min-height: 250px">
                                 <thead>
                                     <tr>
                                         <th>N°</th>
@@ -80,11 +80,11 @@
                                                             </button>
                                                         </form>
                                                         <form 
-                                                            action="{{ route('leads.updateEnglishTable', $lead) }}" method="POST" >
+                                                            action="{{ route('leads.updateQualifiedTable', $lead) }}" method="POST" >
                                                             @csrf
                                                             @method('PUT')
                                                             <button class="dropdown-item">
-                                                                Enviar a <b>INGLÉS</b>
+                                                                Enviar a <b>CALIFICADOS</b>
                                                             </button>
                                                         </form>
                                                         <hr class="dropdown-divider"></li>
