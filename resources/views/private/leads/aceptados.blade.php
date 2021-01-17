@@ -17,7 +17,7 @@
 
                     @if ($leads->count() != 0)
                         <div class="table-responsive">
-                            <table class="table">
+                            <table class="table" style="min-height: 250px">
                                 <thead>
                                     <tr>
                                         <th>N°</th>
