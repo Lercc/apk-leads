@@ -171,7 +171,7 @@
                                 </small>
                             </div>
                             <div class="form-group col-md-6">
-                                <label>Horario de contácto preferente</label>
+                                <label>Horario de contacto preferente</label>
                                 <div class="input-group">
                                     <input 
                                         type="number" 
