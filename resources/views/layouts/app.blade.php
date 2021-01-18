@@ -37,12 +37,38 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+                    <ul class="navbar-nav mr-auto text-center">
+                        @guest
+                        @else
+                        <li class="nav-item">
+                            <a href="{{ route('leads.calificados') }}" class="nav-link font-weight-bolder">Tabla Calificados</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle font-weight-bolder" href="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                Tabla Perfiles aceptados
+                            </a>
 
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('leads.aceptados') }}">Todos</a>
+                                <a class="dropdown-item" href="{{ route('leads.aceptados.enviado') }}">Enviado a pipeline</a>
+                                <a class="dropdown-item" href="{{ route('leads.aceptados.noenviado') }}">No enviado a pipeline</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('leads.aceptados') }}" class="nav-link font-weight-bolder">Tabla Perfiles aceptados</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('leads.edad') }}" class="nav-link font-weight-bolder">Tabla Edad</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('leads.ingles') }}" class="nav-link font-weight-bolder">Tabla Inglés</a>
+                        </li>
+                        
+                        @endguest
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav ml-auto text-center ">
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
@@ -51,20 +77,8 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item">
-                                <a href="{{ route('leads.calificados') }}" class="nav-link font-weight-bolder">Tabla Calificados</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('leads.aceptados') }}" class="nav-link font-weight-bolder">Tabla Perfiles aceptados</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('leads.edad') }}" class="nav-link font-weight-bolder">Tabla Edad</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('leads.ingles') }}" class="nav-link font-weight-bolder">Tabla Inglés</a>
-                            </li>
                             <li class="nav-item d-none d-md-block">
-                               <span class="nav-link font-weight-bolder">&nbsp;&Iota;&nbsp;</span>
+                                <span class="nav-link font-weight-bolder">&nbsp;&Iota;&nbsp;</span>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle font-weight-bolder" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

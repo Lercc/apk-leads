@@ -10,8 +10,11 @@
 
                 <div class="card-body">
                     @if (session('status'))
-                        <div class="alert alert-success" role="alert">
+                        <div class="alert alert-primary alert-dismissible fade show" role="alert">
                             {{ session('status') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
                     @endif
 
@@ -96,7 +99,7 @@
                                                             <input 
                                                                 type="submit" 
                                                                 value="Eliminar" 
-                                                                class="text-danger border-0 bg-transparent p-0"
+                                                                class="text-danger text-left border-0 bg-transparent p-0 w-100"
                                                                 onclick="return confirm('¿Estás seguro de eliminar este registro?')"
                                                             >
                                                         </form>

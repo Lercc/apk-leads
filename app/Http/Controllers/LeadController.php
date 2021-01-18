@@ -26,12 +26,42 @@ class LeadController extends Controller
     }
     public function indexAceptados()
     {
-        // $leads = Lead::where('table_name', '=', 'aceptados')->paginate(2);
         $leads = Lead::where('table_name', '=', 'aceptados')
             ->orderBy('id','desc')
             ->with(['program', 'institution', 'career'])
             ->paginate(10);
-        return view('private.leads.aceptados', compact('leads'));
+
+        $pipeline = 'todos';
+
+        return view('private.leads.aceptados', compact('leads','pipeline'));
+    }
+    public function indexAceptadosEnviado()
+    {
+        $leads = Lead::where([
+            ['table_name', '=', 'aceptados'],
+            ['pipeline_dispatch', '=', 'si'],
+            ])
+            ->orderBy('id','desc')
+            ->with(['program', 'institution', 'career'])
+            ->paginate(10);
+
+        $pipeline = 'si';
+
+        return view('private.leads.aceptados', compact('leads','pipeline'));
+    }
+    public function indexAceptadosNoEnviado()
+    {
+        $leads = Lead::where([
+            ['table_name', '=', 'aceptados'],
+            ['pipeline_dispatch', '=', 'no'],
+            ])
+            ->orderBy('id','desc')
+            ->with(['program', 'institution', 'career'])
+            ->paginate(10);
+        
+        $pipeline = 'no';
+
+        return view('private.leads.aceptados', compact('leads','pipeline'));
     }
     public function indexEdad()
     {
@@ -53,7 +83,7 @@ class LeadController extends Controller
     }
     
     /**
-     * EDIT UPDATE GENERAL
+     * EDIT AND UPDATE GENERAL
      */
     public function edit(Lead $lead)
     {
@@ -86,7 +116,7 @@ class LeadController extends Controller
     public function update(Request $request, Lead $lead)
     {
         $more_rules = [
-            'name'                      => ['required', 'string', 'max:40'],
+                'name'                      => ['required', 'string', 'max:40'],
                 'surnames'                  => ['required', 'string', 'max:60'],
                 'mobile'                    => ['required', 'digits:9', 'numeric'],
                 'career_id'                 => ['required'],
@@ -101,7 +131,7 @@ class LeadController extends Controller
                 'schedule_end_meridiem'     => ['required', 'string', 'max:2'],
 
                 'commentary'                => ['nullable'],
-                'profile'                  => ['nullable'],
+                'profile'                   => ['nullable'],
         ];
 
         // TRIGGER: cambio en DNI 
@@ -132,14 +162,14 @@ class LeadController extends Controller
             $this->validate($request,$rules);
         }
 
-        return dd($request->all());
-        // $lead->update($request->all());
-        // return back()->with('status','Registro actualizado correctamente.');
+        // return dd($request->all());
+        $lead->update($request->all());
+        return back()->with('status','Registro actualizado correctamente.');
     }
 
     
     /**
-     * UPDATE
+     * UPDATE PARTICULARS
      */
     public function updateQualifiedTable(Request $request, Lead $lead)
     {
@@ -147,7 +177,7 @@ class LeadController extends Controller
         $lead->table_name = 'calificados';
         $lead->save();
 
-        return back();
+        return back()->with('status','Registro enviado correctamente a la TABLA CALIFICADOS');
     }
     public function updateAceptedTable(Request $request, Lead $lead)
     {
@@ -155,7 +185,21 @@ class LeadController extends Controller
         $lead->table_name = 'aceptados';
         $lead->save();
 
-        return back();
+        return back()->with('status','Registro enviado correctamente a la TABLA PERFILES ACEPTADOS');
+    }
+    public function updatePipeline(Request $request, Lead $lead, $pPipe)
+    {
+        // dd($pPipe);
+
+        $lead->update($request->all());
+        $lead->pipeline_dispatch = $pPipe;
+        $lead->save();
+
+        if($pPipe == 'si') {
+            return back()->with('status','El estado del registro fue cambiado a ENVIADO');
+        } else {
+            return back()->with('status','El estado del registro fue cambiado a NO ENVIADO');
+        }
     }
     public function updateAgeTable(Request $request, Lead $lead)
     {
@@ -163,7 +207,7 @@ class LeadController extends Controller
         $lead->table_name = 'edad';
         $lead->save();
 
-        return back();
+        return back()->with('status','Registro enviado correctamente a la TABLA EDAD');
     }
     public function updateEnglishTable(Request $request, Lead $lead)
     {
@@ -171,7 +215,7 @@ class LeadController extends Controller
         $lead->table_name = 'ingles';
         $lead->save();
 
-        return back();
+        return back()->with('status','Registro enviado correctamente a la TABLA INGLÉS');
     }
 
     public function destroy(Lead $lead)

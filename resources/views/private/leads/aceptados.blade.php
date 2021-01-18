@@ -6,12 +6,21 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">TABLA ACEPTADOS</div>
+                <div class="card-header">TABLA PERFILES ACEPTADOS 
+                    @if( $pipeline == 'si' ) 
+                        - <em class="text-success"><b> enviados a pipeline</b></em> 
+                    @elseif( $pipeline == 'no' )
+                        - <em class="text-danger"><b> no enviados a pipeline</b></em> 
+                    @endif
+                </div>
 
                 <div class="card-body">
                     @if (session('status'))
-                        <div class="alert alert-success" role="alert">
+                        <div class="alert alert-primary alert-dismissible fade show" role="alert">
                             {{ session('status') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
                     @endif
 
@@ -21,6 +30,7 @@
                                 <thead>
                                     <tr>
                                         <th>N°</th>
+                                        <th>PIPELINE</th>
                                         <th>DNI</th>
                                         <th>NOMBRES</th>
                                         <th>APELLIDOS</th>
@@ -43,6 +53,8 @@
                                     @foreach ($leads as $lead)
                                         <tr>
                                             <td>{{ $lead->id }}</td>
+                                            <td 
+                                                class="text-nowrap text-center text-bold @if($lead->pipeline_dispatch == 'no') text-danger  @elseif($lead->pipeline_dispatch == 'si') text-success @endif" >{{ $lead->pipeline_dispatch }}</td>
                                             <td>{{ $lead->dni }}</td>
                                             <td class="text-nowrap">{{ $lead->name }}</td>
                                             <td class="text-nowrap">{{ $lead->surnames }}</td>
@@ -87,7 +99,35 @@
                                                                 Enviar a <b>INGLÉS</b>
                                                             </button>
                                                         </form>
+
                                                         <hr class="dropdown-divider"></li>
+
+                                                            @if($lead->pipeline_dispatch == 'no')
+                                                                <form 
+                                                                    action="{{ route('leads.update.pipeline', [$lead,'si']) }}" method="POST" class="dropdown-item">
+                                                                    @csrf
+                                                                    @method('PUT')
+                                                                    <input 
+                                                                        type="submit" 
+                                                                        value="ENVIAR A PIPELINE" 
+                                                                        class="text-success text-left border-0 bg-transparent p-0 w-100"
+                                                                    >
+                                                                </form>
+                                                            @elseif($lead->pipeline_dispatch == 'si')
+                                                                <form 
+                                                                    action="{{ route('leads.update.pipeline', [$lead,'no']) }}" method="POST" class="dropdown-item">
+                                                                    @csrf
+                                                                    @method('PUT')
+                                                                    <input 
+                                                                        type="submit" 
+                                                                        value="QUITAR DE PIPELINE" 
+                                                                        class="text-danger text-left border-0 bg-transparent p-0 w-100"
+                                                                    >
+                                                                </form>
+                                                            @endif
+
+                                                        <hr class="dropdown-divider"></li>
+
                                                         <a class="dropdown-item text-primary " href="{{ route('leads.edit', $lead) }}">Editar</a>
                                                         <form 
                                                             action="{{ route('leads.destroy', $lead) }}" method="POST" class="dropdown-item">
@@ -96,7 +136,7 @@
                                                             <input 
                                                                 type="submit" 
                                                                 value="Eliminar" 
-                                                                class="text-danger border-0 bg-transparent p-0"
+                                                                class="text-danger text-left border-0 bg-transparent p-0 w-100"
                                                                 onclick="return confirm('¿Estás seguro de eliminar este registro?')"
                                                             >
                                                         </form>

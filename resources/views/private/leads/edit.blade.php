@@ -81,9 +81,8 @@
                                 <label for="career_id">Carrera</label>
                                 {{-- ACTIVAR DESACTIVAR CLASE EN RELACIÓN A LA EXISTENCIA DE ALGÚN ERROR --}}
                                 <select name="career_id" class="form-control @error('career_id') is-invalid @enderror">
-                                    <option value="{{$lead->career->id}}" disabled>{{$lead->career->name}}</option>
                                     @foreach ($careers as $career)
-                                        <option value="{{$career->id}}">{{$career->name}}</option>
+                                        <option value="{{$career->id}}" @if($lead->career->id == $career->id) selected @endif >{{$career->name}}</option>
                                     @endforeach
                                 </select>
                                 @error('career_id')
@@ -93,20 +92,19 @@
                             <div class="form-group col-md-4">
                                 <label for="semester">Semestre</label>
                                 <select name="semester" class="form-control @error('semester') is-invalid @enderror">
-                                    <option value="{{$lead->semester}}" disabled>{{$lead->semester}}</option>
-                                    <option value="I">I</option>
-                                    <option value="II">II</option>
-                                    <option value="III">III</option>
-                                    <option value="IV">IV</option>
-                                    <option value="V">V</option>
-                                    <option value="VI">VI</option>
-                                    <option value="VII">VII</option>
-                                    <option value="VIII">VIII</option>
-                                    <option value="IX">IX</option>
-                                    <option value="X">X</option>
-                                    <option value="XI">XI</option>
-                                    <option value="XII">XII</option>
-                                    <option value="terminado">terminado</option>
+                                    <option value="I" @if($lead->semester == 'I') selected @endif>I</option>
+                                    <option value="II" @if($lead->semester == 'II') selected @endif>II</option>
+                                    <option value="III" @if($lead->semester == 'III') selected @endif>III</option>
+                                    <option value="IV" @if($lead->semester == 'IV') selected @endif>IV</option>
+                                    <option value="V" @if($lead->semester == 'V') selected @endif>V</option>
+                                    <option value="VI" @if($lead->semester == 'VI') selected @endif>VI</option>
+                                    <option value="VII" @if($lead->semester == 'VII') selected @endif>VII</option>
+                                    <option value="VIII" @if($lead->semester == 'VIII') selected @endif>VIII</option>
+                                    <option value="IX" @if($lead->semester == 'IX') selected @endif>IX</option>
+                                    <option value="X" @if($lead->semester == 'X') selected @endif>X</option>
+                                    <option value="XI" @if($lead->semester == 'XI') selected @endif>XI</option>
+                                    <option value="XII" @if($lead->semester == 'XII') selected @endif>XII</option>
+                                    <option value="terminado" @if($lead->semester == 'terminado') selected @endif>terminado</option>
                                 </select>
                                 @error('semester')
                                     <div class="invalid-feedback">{{$message}}</div>
@@ -115,9 +113,8 @@
                             <div class="form-group col-md-12">
                                 <label for="institution_id">Universidad / Instituto</label>
                                 <select name="institution_id" class="form-control @error('institution_id') is-invalid @enderror">
-                                    <option value="{{$lead->institution->id}}" disabled>{{$lead->institution->name}}</option>
                                     @foreach ($institutions as $institution)
-                                        <option value="{{$institution->id}}">{{$institution->name}}</option>
+                                        <option value="{{$institution->id}}" @if($lead->institution->id == $institution->id) selected @endif >{{$institution->name}}</option>
                                     @endforeach
                                 </select>
                                 @error('institution_id')
@@ -132,11 +129,10 @@
                             <div class="form-group col-md-6">
                                 <label for="english_level">Inglés</label>
                                 <select name="english_level" class="form-control @error('english_level') is-invalid @enderror">
-                                    <option value="{{$lead->english_level}}" disabled>{{$lead->english_level}}</option>
-                                    <option value="básico">Básico</option>
-                                    <option value="intermedio">Intermedio</option>
-                                    <option value="avanzado">Avanzado</option>
-                                    <option value="ninguno">Ninguno</option>
+                                    <option value="básico" @if($lead->english_level == 'básico') selected @endif>Básico</option>
+                                    <option value="intermedio" @if($lead->english_level == 'intermedio') selected @endif>Intermedio</option>
+                                    <option value="avanzado" @if($lead->english_level == 'avanzado') selected @endif>Avanzado</option>
+                                    <option value="ninguno" @if($lead->english_level == 'ninguno') selected @endif>Ninguno</option>
                                 </select>
                                 @error('english_level')
                                     <div class="invalid-feedback">{{$message}}</div>
@@ -145,9 +141,8 @@
                             <div class="form-group col-md-6">
                                 <label for="program_id">Programa</label>
                                 <select name="program_id" class="form-control @error('program_id') is-invalid @enderror">
-                                    <option value="{{$lead->program->id}}" disabled>{{$lead->program->name}}</option>
                                     @foreach ($programs as $program)
-                                        <option value="{{$program->id}}">{{$program->name}}</option>
+                                        <option value="{{$program->id}}" @if($lead->program->id == $program->id) selected  @endif  >{{$program->name}}</option>
                                     @endforeach
                                 </select>
                                 @error('program_id')
@@ -162,12 +157,11 @@
                             <div class="form-group col-md-6">
                                 <label for="communication_channel">Canal de comunicación preferente</label>
                                 <select name="communication_channel" class="form-control @error('communication_channel') is-invalid @enderror">
-                                    <option value="{{$lead->communication_channel}}" disabled>{{$lead->communication_channel}}</option>
-                                    <option value="facebook/messenger">Facebook/Messenger</option>
-                                    <option value="whatsapp">Whatsapp</option>
-                                    <option value="instragram">Instragram</option>
-                                    <option value="correo">Correo electrónico</option>
-                                    <option value="teléfono">Teléfono</option>
+                                    <option value="facebook/messenger" @if($lead->communication_channel == 'facebook/messenger') selected @endif" >Facebook/Messenger</option>
+                                    <option value="whatsapp" @if($lead->communication_channel == 'whatsapp') selected @endif >Whatsapp</option>
+                                    <option value="instragram" @if($lead->communication_channel == 'instragram') selected @endif >Instragram</option>
+                                    <option value="correo" @if($lead->communication_channel == 'correo') selected @endif >Correo electrónico</option>
+                                    <option value="teléfono" @if($lead->communication_channel == 'teléfono') selected @endif >Teléfono</option>
                                 </select>
                                 @error('communication_channel')
                                     <div class="invalid-feedback">{{$message}}</div>
