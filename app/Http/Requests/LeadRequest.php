@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Lead;
 use Illuminate\Foundation\Http\FormRequest;
 
 class LeadRequest extends FormRequest
@@ -42,11 +43,6 @@ class LeadRequest extends FormRequest
 
             'commentary'                => ['nullable'],
             'profile'                  => ['nullable'],
-
-            // 'career_id' => ['required','email'],
-            // 'program_id' => 'required',
         ];
-
-        //     'password' => ['required', 'string', 'min:8', 'confirmed'],
     }
 }

@@ -9,6 +9,8 @@ class Lead extends Model
 {
     use HasFactory;
 
+    protected $with = ['career']; //defines cunado siempre recuperraras las relaciones en las conultas
+
     protected $fillable = [
         'dni',
         'name',

@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Nuevo Registro</div>
+                <div class="card-header">Editar Registro</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -18,35 +18,24 @@
                             </button>
                         </div>
                     @endif
-                    {{-- MOSTRAR ERROES DE INPUTS FORMA - I ERRORES GLOBALES --}}
+
                     @if ($errors->any())
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                             {{-- {{ dd($errors->all()) }} --}}
-                             {{-- {{ dd($errors->messages()['career_id']) }} --}}
                             Verifica los campos del formulario.
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                     @endif
-                    
-                    {{-- MOSTRAR ERROES DE INPUTS FORMA - II ERRORES PARTICULARES --}}
-                    {{-- @error('career_id')
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        <strong>{{$message}}</strong>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    @enderror --}}
-                        
-                    <form action="{{ route('leads.store') }}" method="POST"
+
+                    <form action="{{ route('leads.update', $lead) }}" method="POST"
                     >
+                        @method('PUT')
                         @csrf
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="dni">DNI *</label>
-                                <input type="number" name="dni" class="form-control @error('dni') is-invalid @enderror" placeholder="Ingese su número de dni" value="{{old('dni')}}">
+                                <label for="dni">DNI</label>
+                                <input type="number" name="dni" class="form-control @error('dni') is-invalid @enderror" placeholder="Ingese su número de dni" value="{{old('dni', $lead->dni)}}">
                                 @error('dni')
                                     <div class="invalid-feedback">{{$message}}</div>
                                 @enderror
@@ -54,15 +43,15 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="name">Nombre *</label>
-                                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" placeholder="Ingese sus nombres" value="{{old('name')}}">
+                                <label for="name">Nombre</label>
+                                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" placeholder="Ingese sus nombres" value="{{old('name', $lead->name)}}">
                                 @error('name')
                                     <div class="invalid-feedback">{{$message}}</div>
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="surnames">Apellidos *</label>
-                                <input type="text" name="surnames" class="form-control @error('surnames') is-invalid @enderror" placeholder="Ingese su apellido paterno y materno" value="{{old('surname')}}">
+                                <label for="surnames">Apellidos</label>
+                                <input type="text" name="surnames" class="form-control @error('surnames') is-invalid @enderror" placeholder="Ingese su apellido paterno y materno" value="{{old('surname', $lead->surnames)}}">
                                 @error('surnames')
                                     <div class="invalid-feedback">{{$message}}</div>
                                 @enderror
@@ -70,15 +59,15 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="mobile">Celular *</label>
-                                <input type="number" name="mobile" class="form-control @error('mobile') is-invalid @enderror" placeholder="Ingese su número de celular" value="{{old('mobile')}}">
+                                <label for="mobile">Celular</label>
+                                <input type="number" name="mobile" class="form-control @error('mobile') is-invalid @enderror" placeholder="Ingese su número de celular" value="{{old('mobile', $lead->mobile)}}">
                                 @error('mobile')
                                     <div class="invalid-feedback">{{$message}}</div>
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="email">Correo *</label>
-                                <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Ingese su correo de contacto" value="{{old('email')}}">
+                                <label for="email">Correo</label>
+                                <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Ingese su correo de contacto" value="{{old('email', $lead->email)}}">
                                 @error('email')
                                     <div class="invalid-feedback">{{$message}}</div>
                                 @enderror
@@ -89,29 +78,22 @@
 
                         <div class="form-row">
                             <div class="form-group col-md-8">
-                                <label for="career_id">Carrera *</label>
+                                <label for="career_id">Carrera</label>
                                 {{-- ACTIVAR DESACTIVAR CLASE EN RELACIÓN A LA EXISTENCIA DE ALGÚN ERROR --}}
                                 <select name="career_id" class="form-control @error('career_id') is-invalid @enderror">
-                                    <option selected disabled>Seleccione su carrera</option>
+                                    <option value="{{$lead->career->id}}" disabled>{{$lead->career->name}}</option>
                                     @foreach ($careers as $career)
-                                        <option value="{{$career->id}}">{{$career->name }}</option>
+                                        <option value="{{$career->id}}">{{$career->name}}</option>
                                     @endforeach
                                 </select>
                                 @error('career_id')
                                     <div class="invalid-feedback">{{$message}}</div>
                                 @enderror
-
-                                {{-- MOSTRAR ERROR DE INPUT - FORMA III - ACCEDIENDO AL ARRAY DE ERRORES --}}
-                                {{-- @if ($errors->any() && $errors->messages()['career_id'])
-                                    @foreach ($errors->messages()['career_id'] as $err)
-                                        <div class="invalid-feedback">{{$err}}</div>
-                                    @endforeach    
-                                @endif --}}
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="semester">Semestre *</label>
+                                <label for="semester">Semestre</label>
                                 <select name="semester" class="form-control @error('semester') is-invalid @enderror">
-                                    <option selected disabled>Seleccione su semestre</option>
+                                    <option value="{{$lead->semester}}" disabled>{{$lead->semester}}</option>
                                     <option value="I">I</option>
                                     <option value="II">II</option>
                                     <option value="III">III</option>
@@ -131,11 +113,11 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-12">
-                                <label for="institution_id">Universidad / Instituto *</label>
+                                <label for="institution_id">Universidad / Instituto</label>
                                 <select name="institution_id" class="form-control @error('institution_id') is-invalid @enderror">
-                                    <option selected disabled>Seleccione su universidad o instituto</option>
+                                    <option value="{{$lead->institution->id}}" disabled>{{$lead->institution->name}}</option>
                                     @foreach ($institutions as $institution)
-                                        <option value="{{$institution->id}}">{{$institution->name }}</option>
+                                        <option value="{{$institution->id}}">{{$institution->name}}</option>
                                     @endforeach
                                 </select>
                                 @error('institution_id')
@@ -148,9 +130,9 @@
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="english_level">Inglés *</label>
+                                <label for="english_level">Inglés</label>
                                 <select name="english_level" class="form-control @error('english_level') is-invalid @enderror">
-                                    <option selected disabled>Seleccione su nivel de inglés</option>
+                                    <option value="{{$lead->english_level}}" disabled>{{$lead->english_level}}</option>
                                     <option value="básico">Básico</option>
                                     <option value="intermedio">Intermedio</option>
                                     <option value="avanzado">Avanzado</option>
@@ -161,9 +143,9 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="program_id">Programa *</label>
+                                <label for="program_id">Programa</label>
                                 <select name="program_id" class="form-control @error('program_id') is-invalid @enderror">
-                                    <option selected disabled>Seleccione el programa que le interesa</option>
+                                    <option value="{{$lead->program->id}}" disabled>{{$lead->program->name}}</option>
                                     @foreach ($programs as $program)
                                         <option value="{{$program->id}}">{{$program->name}}</option>
                                     @endforeach
@@ -178,10 +160,9 @@
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="communication_channel">Canal de comunicación preferente *</label>
-                                {{-- <input type="text" name="communication_channel" class="form-control @error('communication_channel') is-invalid @enderror"> --}}
+                                <label for="communication_channel">Canal de comunicación preferente</label>
                                 <select name="communication_channel" class="form-control @error('communication_channel') is-invalid @enderror">
-                                    <option selected disabled>Seleccione un medio de comunicación</option>
+                                    <option value="{{$lead->communication_channel}}" disabled>{{$lead->communication_channel}}</option>
                                     <option value="facebook/messenger">Facebook/Messenger</option>
                                     <option value="whatsapp">Whatsapp</option>
                                     <option value="instragram">Instragram</option>
@@ -196,14 +177,14 @@
                                 </small>
                             </div>
                             <div class="form-group col-md-6">
-                                <label>Horario de contácto preferente *</label>
+                                <label>Horario de contácto preferente</label>
                                 <div class="input-group">
                                     <input 
                                         type="number" 
                                         name="schedule_start"
                                         min="1" 
                                         max="11" 
-                                        value="{{old('schedule_start')}}"
+                                        value="{{old('schedule_start', $lead->schedule_start)}}"
                                         class="form-control @error('schedule_start') is-invalid @enderror" 
                                         placeholder="Inicio">
                                     <select name="schedule_start_meridiem" class="form-control">
@@ -218,7 +199,7 @@
                                         name="schedule_end"
                                         min="1" 
                                         max="11"
-                                        value="{{old('schedule_end')}}"
+                                        value="{{old('schedule_end', $lead->schedule_end)}}"
                                         class="form-control @error('schedule_end') is-invalid @enderror"
                                         placeholder="Fin">
                                     <select name="schedule_end_meridiem" class="form-control">
@@ -241,24 +222,23 @@
                             <div class="form-row">
                                 <div class="form-group col-12">
                                     <label for="commentary">Comentario</label>
-                                    <textarea name="commentary" rows="3" class="form-control" placeholder="Ingrese un comentario..."></textarea>
+                                    <textarea name="commentary" rows="3" class="form-control" placeholder="Ingrese un comentario...">{{old('commentary', $lead->commentary)}}</textarea>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-12">
                                     <label for="profile">Perfil</label>
-                                    <textarea name="profile" rows="3" class="form-control" placeholder="Ingrese el perfil de ..."></textarea>
+                                    <textarea name="profile" rows="3" class="form-control" placeholder="Ingrese el perfil de ..." >{{old('profile', $lead->profile)}}</textarea>
                                 </div>
                             </div>
                         @endguest
 
                         <br>
 
-
                         <div class="form-row justify-content-center">
                             <div class="form-group col-md-6">
                                 <button class="form-control btn btn-lg btn-primary">
-                                    Enviar
+                                    Actualizar
                                 </button>
                             </div>
                         </div>

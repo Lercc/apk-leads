@@ -52,16 +52,16 @@
                             @endif
                         @else
                             <li class="nav-item">
-                                <a href="{{ route('leads.calificados') }}" class="nav-link font-weight-bolder">Calificados</a>
+                                <a href="{{ route('leads.calificados') }}" class="nav-link font-weight-bolder">Tabla Calificados</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('leads.aceptados') }}" class="nav-link font-weight-bolder">Perfiles aceptados</a>
+                                <a href="{{ route('leads.aceptados') }}" class="nav-link font-weight-bolder">Tabla Perfiles aceptados</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('leads.edad') }}" class="nav-link font-weight-bolder">Edad</a>
+                                <a href="{{ route('leads.edad') }}" class="nav-link font-weight-bolder">Tabla Edad</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('leads.ingles') }}" class="nav-link font-weight-bolder">Inglés</a>
+                                <a href="{{ route('leads.ingles') }}" class="nav-link font-weight-bolder">Tabla Inglés</a>
                             </li>
                             <li class="nav-item d-none d-md-block">
                                <span class="nav-link font-weight-bolder">&nbsp;&Iota;&nbsp;</span>

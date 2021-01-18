@@ -59,12 +59,12 @@
                                             <td class="text-nowrap">{{ $lead->profile }}</td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                    <button type="button" class="btn btn-sm  btn-primary dropdown-toggle" data-toggle="dropdown">
                                                         &#x2022;&#x2022;&#x2022;
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-right">
                                                         <form 
-                                                            action="{{ route('leads.updateAceptedTable', $lead) }}" method="POST" m-0">
+                                                            action="{{ route('leads.updateAceptedTable', $lead) }}" method="POST"">
                                                             @csrf
                                                             @method('PUT')
                                                             <button class="dropdown-item">

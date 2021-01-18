@@ -16,8 +16,11 @@ Route::get('/', function () {
 
 Route::get('l/register', [PageController::class, 'createLead'])->name('page.lead.register');
 
+// EDIT AND UPDATE GENERAL LEADS
 Route::get('leads/{lead}/edit', [LeadController::class, 'edit'])->name('leads.edit')->middleware('auth'); //falta
-Route::put('leads/{lead}', [LeadController::class, 'update'])->name('leads.update')->middleware('auth');  //falta
+Route::put('leads/{lead}/update', [LeadController::class, 'update'])->name('leads.update')->middleware('auth');  //falta
+
+// DELETE GENERAL LEADS
 Route::delete('leads/{lead}', [LeadController::class, 'destroy'])->name('leads.destroy')->middleware('auth');
 
 // INDEX LEADS
