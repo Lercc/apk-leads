@@ -230,8 +230,6 @@ class LeadController extends Controller
     public function store(LeadRequest $request)
     {
         // dd($request->validated());
-        // $lead = Lead::save($request->validated());
-        // $post->update($request->validated());
         $lead = new Lead($request->validated());
         $lead->pipeline_dispatch = 'no';
         $lead->table_name = 'calificados';
